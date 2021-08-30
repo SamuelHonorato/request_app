@@ -1,13 +1,19 @@
 # RequestApp
 
-To start your Phoenix server:
+Para iniciar seu servidor Phoenix:
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server`
+  * Instalar dependências com `mix deps.get`
+  * Iniciar phoenix com `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Executar a aplicação via HTTPoison Base:
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+  * `mix run priv/mode1_playground.exs`
+
+Executar a aplicação via HTTPoison ou Tesla:
+
+  * Alterar variável de ambiente em `config/config.exs`
+    * `config :request_app, :http_client, TeslaClient` ou `config :request_app, :http_client, HttpoisonClient`
+  * `mix run priv/mode2_playground.exs`
 
 ## Learn more
 
