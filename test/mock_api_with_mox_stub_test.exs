@@ -1,12 +1,8 @@
 defmodule MockAPITest do
   use ExUnit.Case
 
-  import ExUnit.CaptureLog
-  import Mox
-
   require Logger
-
-  setup :verify_on_exit!
+  import ExUnit.CaptureLog
 
   describe "get_mock/1" do
     test "success" do
@@ -21,10 +17,20 @@ defmodule MockAPITest do
       assert Services.Mode1.MockApi.get_mock(200) == {:ok, "DEFAULT"}
     end
 
-    test "success with api" do
-      Mox.stub_with(Services.Mode1.MockApiMock, Services.Mode1.MockApi)
+#    test "success with api" do
+#      Mox.stub_with(Services.Mode1.MockApiMock, Services.Mode1.MockApi)
+#
+#      assert Services.Mode1.MockApi.get_mock(200) == {:ok, %{"title" => "Hello..."}}
+#    end
 
-      assert Services.Mode1.MockApi.get_mock(200) == {:ok, %{"title" => "Hello..."}}
+    test "success with log" do
+      Mox.stub(Services.Mode1.MockApiMock, :request, fn _url ->
+        Logger.error("Getting request")
+
+        {:ok, "OK"}
+      end)
+
+      assert capture_log(fn -> Services.Mode1.MockApi.get_mock(200) end) =~ "Getting request"
     end
   end
 end
