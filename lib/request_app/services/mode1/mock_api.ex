@@ -15,6 +15,7 @@ defmodule Services.Mode1.MockApi do
     @api.request("/api/mock?" <> query_params)
   end
 
+  @impl Services.Mode1.MockApi.Behaviour
   def request(url) do
     case HTTPoisonBaseClient.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: %{"data" => data}}} -> {:ok, data}
