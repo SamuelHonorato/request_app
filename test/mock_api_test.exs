@@ -1,4 +1,4 @@
-defmodule MockAPITest do
+defmodule Services.Mode1.MockApiTest do
   use ExUnit.Case
 
   require Logger
