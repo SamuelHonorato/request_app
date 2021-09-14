@@ -30,6 +30,8 @@ config :tesla, adapter: Tesla.Adapter.Hackney
 # [TeslaClient, HttpoisonClient]
 config :request_app, :http_client, TeslaClient
 
+config :request_app, :request, Services.Mode1.MockApi
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

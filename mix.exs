@@ -44,6 +44,7 @@ defmodule RequestApp.MixProject do
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
       {:poison, "~> 5.0"},
+      {:mox, ">= 0.0.0", only: :test},
     ]
   end
 

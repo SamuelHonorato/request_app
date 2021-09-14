@@ -8,3 +8,5 @@ config :request_app, RequestAppWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :request_app, :request, Services.Mode1.MockApiMock
