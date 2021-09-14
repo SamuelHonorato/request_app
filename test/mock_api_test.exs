@@ -32,5 +32,28 @@ defmodule Services.Mode1.MockApiTest do
 
       assert capture_log(fn -> Services.Mode1.MockApi.get_mock(200) end) =~ "Getting request"
     end
+
+    test "success with expect" do
+      Services.Mode1.MockApiMock
+      |> Mox.expect(:request, fn _url -> {:ok, "OK"} end)
+
+      assert Services.Mode1.MockApi.get_mock(200) == {:ok, "OK"}
+    end
+
+    test "success with process" do
+      Services.Mode1.MockApiMock
+      |> Mox.expect(:request, fn _url -> {:ok, "OK"} end)
+
+      parent_pid = self()
+
+      task =
+        Task.async(fn ->
+          Mox.allow(Services.Mode1.MockApi, parent_pid, _task_async_pid = self())
+
+          assert Services.Mode1.MockApi.get_mock(200) == {:ok, "OK"}
+        end)
+
+      Task.await(task)
+    end
   end
 end
