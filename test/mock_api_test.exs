@@ -24,13 +24,13 @@ defmodule Services.Mode1.MockApiTest do
 #    end
 
     test "success with log" do
-      Mox.stub(Services.Mode1.MockApiMock, :request, fn _url ->
-        Logger.error("Getting request")
+      Mox.stub(Services.Mode1.MockApiMock, :request, fn url ->
+        Logger.error("Getting request: #{url}")
 
         {:ok, "OK"}
       end)
 
-      assert capture_log(fn -> Services.Mode1.MockApi.get_mock(200) end) =~ "Getting request"
+      assert capture_log(fn -> Services.Mode1.MockApi.get_mock(200) end) =~ "Getting request: /api/mock?status_code=200"
     end
 
     test "success with expect" do
