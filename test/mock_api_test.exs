@@ -7,12 +7,19 @@ defmodule Services.Mode1.MockApiTest do
   import ExUnit.CaptureLog
 
   describe "get_mock/1 with setup" do
+    setup :set_mox_global
     setup :verify_on_exit!
 
     test "success with expect and verify/0" do
       expect(Services.Mode1.MockApiMock, :request, 1, fn _url -> {:ok, "OK"} end)
 
       assert Services.Mode1.MockApi.get_mock(200) == {:ok, "OK"}
+    end
+
+    test "success async" do
+      expect(Services.Mode1.MockApiMock, :request, 1, fn _url -> {:ok, "OK"} end)
+
+      assert Services.Mode1.MockApi.get_mock_async(200) == {:ok, "OK"}
     end
   end
 

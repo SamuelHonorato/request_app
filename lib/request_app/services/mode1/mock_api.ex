@@ -15,6 +15,19 @@ defmodule Services.Mode1.MockApi do
     @api.request("/api/mock?" <> query_params)
   end
 
+  def get_mock_async(status_code) do
+    Logger.info("Request async by HTTPoison Base Client")
+
+    query_params = URI.encode_query(%{"status_code" => status_code})
+
+    mock_api_task =
+      Task.async(fn ->
+        @api.request("/api/mock?" <> query_params)
+      end)
+
+    Task.await(mock_api_task)
+  end
+
   @impl Services.Mode1.MockApi.Behaviour
   def request(url) do
     case HTTPoisonBaseClient.get(url) do
