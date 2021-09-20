@@ -5,6 +5,14 @@ defmodule Services.Mode1.MockApiTest do
   import ExUnit.CaptureLog
 
   describe "get_mock/1" do
+    test "success with expect and verify" do
+      Mox.expect(Services.Mode1.MockApiMock, :request, 1, fn _url -> {:ok, "OK"} end)
+
+      assert Services.Mode1.MockApi.get_mock(200) == {:ok, "OK"}
+
+      Mox.verify!(Services.Mode1.MockApiMock)
+    end
+
     test "success" do
       Mox.stub(Services.Mode1.MockApiMock, :request, fn _url -> {:ok, "OK"} end)
 
