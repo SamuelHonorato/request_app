@@ -16,5 +16,19 @@ defmodule Services.Mode2.MockApi do
     end
   end
 
+  def get_mock_with_base_url(status_code, base_url \\ @base_url) do
+    Logger.info("Request by HTTPoison Base Client")
+
+    query_params = URI.encode_query(%{"status_code" => status_code})
+    url = "#{base_url}/api/mock?#{query_params}"
+
+    case HTTPoison.get!(url) do
+      %HTTPoison.Response{status_code: status_code, body: body} ->
+        %HTTPStruct{status_code: status_code, body: Poison.decode!(body)}
+      _ ->
+        :error
+    end
+  end
+
   defp http_client, do: Application.get_env(:request_app, :http_client)
 end

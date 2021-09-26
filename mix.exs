@@ -39,12 +39,15 @@ defmodule RequestApp.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+#      {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.8"},
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
       {:poison, "~> 5.0"},
       {:mox, ">= 0.0.0", only: :test},
+      {:plug_cowboy, ">= 0.0.0", only: :test},
+      {:ecto, "~> 3.0"},
+      {:faker, "~> 0.16", only: :test}
     ]
   end
 
